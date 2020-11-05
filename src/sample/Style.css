@@ -1,0 +1,56 @@
+#Login_Anchorpane{
+  -fx-background-color: #383bbb;
+  -fx-border-color: forestgreen;
+}
+
+#Login_Header_Label .text{
+  -fx-font-family: Haettenschweiler;
+  -fx-font-size: 38px;
+  -fx-fill: #28ff0f;
+  -fx-stroke: #000000;
+  -fx-stroke-width: 1px;
+}
+#login_image_view{
+  -fx-image: "iEagleLogo.png";
+}
+
+#Activate_Account_hyperlink .text{
+  -fx-font-size: 18px;
+  -fx-fill: #fff8f6;
+  -fx-underline: true;
+}
+
+#Forgot_Password_hyperlink .text {
+  -fx-font-size: 18px;
+  -fx-fill: #fffefd;
+  -fx-underline: true;
+}
+
+
+#activate_account_webview{
+  -fx-content-display: center;
+}
+#activate_account_vbox{
+  -fx-content-display: center;
+}
+
+#activate_account_anchorpane{
+  -fx-background-color: #383bbb;
+}
+
+#webview_label .text{
+  -fx-font-size: 30px;
+  -fx-font-family: Haettenschweiler;
+  -fx-fill: #28ff0f;
+  -fx-stroke: #000000;
+  -fx-stroke-width: 1px;
+}
+
+#done_label .text{
+  -fx-font-size: 30px;
+  -fx-font-family: Haettenschweiler;
+  -fx-fill: #28ff0f;
+  -fx-stroke: #000000;
+  -fx-stroke-width: 1px;
+}
+

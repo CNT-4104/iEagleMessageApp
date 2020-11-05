@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ToolBar?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.web.WebView?>
+
+<AnchorPane fx:id="activate_account_anchorpane" prefHeight="800.0" prefWidth="1050.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Activate_Account_Controller">
+   <children>
+      <Label fx:id="webview_label" layoutY="40.0" text="Activate your eagle mail, then once it is acitvated, you will automatically be able to access the iEagle Messenger!" />
+      <VBox fx:id="activate_account_vbox" layoutX="14.0" layoutY="93.0" prefHeight="600" prefWidth="1023.0">
+         <children>
+            <ToolBar fx:id="activate_account_toolbar" prefHeight="40.0" prefWidth="200.0">
+            </ToolBar>
+            <WebView fx:id="activate_account_webview" prefHeight="570.0" prefWidth="1044.0" />
+         </children>
+      </VBox>
+      <Button fx:id="done_button" layoutX="609.0" layoutY="724.0" mnemonicParsing="false" onMouseClicked="#go_back" text="Done!" />
+      <Label fx:id="done_label" layoutX="168.0" layoutY="722.0" text="Click 'Done!' once your email is activated!" />
+   </children>
+</AnchorPane>
