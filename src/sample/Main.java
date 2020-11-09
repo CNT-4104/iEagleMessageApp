@@ -13,7 +13,6 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        // Final test comment (hopefully)
         Parent root = FXMLLoader.load(getClass().getResource("Login_FXML.fxml"));
         Scene sceneMain = new Scene(root);
         primaryStage.setTitle("iEagle");
