@@ -13,9 +13,7 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        // Comment used to test git push/commit. Delete me.
-        // Second comment used to test. Delete me.
-        // third comment. Delete me.
+        // Final test comment (hopefully)
         Parent root = FXMLLoader.load(getClass().getResource("Login_FXML.fxml"));
         Scene sceneMain = new Scene(root);
         primaryStage.setTitle("iEagle");
