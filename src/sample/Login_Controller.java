@@ -55,6 +55,7 @@ public class Login_Controller {
 
   @FXML
   void login_user(MouseEvent event) {
+    Main.createNewScene(event, "Home_Page_FXML.fxml");
 
   }
 
