@@ -1,25 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.HomePageFXML">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Home_Page_Controller">
    <children>
       <Text fill="#eead33" layoutX="14.0" layoutY="28.0" strokeType="OUTSIDE" strokeWidth="0.0" text="iEagle Messaging " wrappingWidth="127.47002792358398">
          <font>
             <Font size="15.0" />
          </font>
       </Text>
-      <TextField layoutX="205.0" layoutY="10.0" prefHeight="3.0" prefWidth="207.0" promptText="Search" />
+      <TextField layoutX="196.0" layoutY="8.0" prefHeight="3.0" prefWidth="207.0" promptText="Search Messages" />
       <Separator layoutY="35.0" prefHeight="7.0" prefWidth="600.0" />
       <TabPane layoutY="38.0" prefHeight="362.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE">
         <tabs>
@@ -31,22 +33,17 @@
                         <Separator layoutY="84.0" prefHeight="7.0" prefWidth="101.0" />
                         <Separator layoutY="167.0" prefHeight="7.0" prefWidth="101.0" />
                         <Separator layoutY="248.0" prefHeight="7.0" prefWidth="101.0" />
-                        <Button fx:id="MessageButton" accessibleRole="HYPERLINK" layoutX="-3.0" mnemonicParsing="false" prefHeight="85.0" prefWidth="107.0" text="Messages" />
-                        <Button fx:id="MessaHistoryButton" layoutX="-3.0" layoutY="84.0" mnemonicParsing="false" prefHeight="85.0" prefWidth="107.0" text="Messages History">
+                        <Button fx:id="MessageButton" accessibleRole="HYPERLINK" layoutX="1.0" layoutY="165.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="100.0" text="Chats" />
+                        <Button fx:id="deleted_messages_button" layoutX="1.0" layoutY="218.0" mnemonicParsing="false" onMouseClicked="#go_to_deleted_messages" prefHeight="50.0" prefWidth="100.0" text="Deleted">
                            <font>
                               <Font size="11.0" />
                            </font>
                         </Button>
-                        <Button fx:id="DeleteMessButton" layoutX="-3.0" layoutY="169.0" mnemonicParsing="false" prefHeight="85.0" prefWidth="107.0" text="Deleted Messages">
-                           <font>
-                              <Font size="11.0" />
-                           </font>
-                        </Button>
-                        <Button layoutX="-2.0" layoutY="255.0" mnemonicParsing="false" prefHeight="80.0" prefWidth="105.0" text="Log Out">
+                        <Button fx:id="logout_button" layoutX="1.0" layoutY="271.0" mnemonicParsing="false" onMouseClicked="#logout_user" prefHeight="50.0" prefWidth="100.0" text="Log Out">
                            <graphic>
                               <ImageView fx:id="LogoutButton" fitHeight="17.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@../Images/login%20icon.png" />
+                                    <Image url="@../images/logout_icon.png" />
                                  </image>
                               </ImageView>
                            </graphic>
@@ -58,24 +55,11 @@
                               <Font name="System Bold" size="12.0" />
                            </font>
                         </Text>
-                        <ImageView fitHeight="20.0" fitWidth="17.0" layoutX="128.0" layoutY="22.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../Images/grey%20dot.jpg" />
-                           </image>
-                        </ImageView>
                         <Text layoutX="170.0" layoutY="44.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Hey, can you make the meeting?" wrappingWidth="193.4700469970703">
                            <font>
                               <Font name="System Italic" size="12.0" />
                            </font>
                         </Text>
-                        <Button layoutX="493.0" layoutY="260.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="44.0">
-                           <graphic>
-                              <ImageView fitHeight="39.0" fitWidth="43.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@../Images/compose%20message%20icon.png" />
-                                 </image>
-                              </ImageView>
-                           </graphic></Button>
                         <Button fx:id="RMessageButton1" accessibleRole="PAGE_ITEM" layoutX="105.0" layoutY="83.0" mnemonicParsing="false" prefHeight="82.0" prefWidth="496.0" />
                         <Text layoutX="157.0" layoutY="104.0" strokeType="OUTSIDE" strokeWidth="0.0" text="First_LastName" wrappingWidth="142.13670349121094">
                            <font>
@@ -87,13 +71,50 @@
                               <Font name="System Italic" size="12.0" />
                            </font>
                         </Text>
+                        <ImageView fitHeight="26.0" fitWidth="26.0" layoutX="124.0" layoutY="86.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/avatar2.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fitHeight="26.0" fitWidth="26.0" layoutX="124.0" layoutY="9.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/avatar1.png" />
+                           </image>
+                        </ImageView>
+                        <Button fx:id="logout_button1" layoutX="1.0" layoutY="112.0" mnemonicParsing="false" onMouseClicked="#logout_user" prefHeight="50.0" prefWidth="100.0" text="     Unread" />
+                        <ImageView fx:id="LogoutButton1" fitHeight="17.0" fitWidth="40.0" layoutX="14.0" layoutY="129.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/unread_message.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fx:id="default_user_imageview" fitHeight="65.0" fitWidth="86.0" layoutX="8.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/default_user_icon.jpg" />
+                           </image>
+                        </ImageView>
+                        <ImageView fx:id="LogoutButton11" fitHeight="17.0" fitWidth="40.0" layoutX="14.0" layoutY="233.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/deleted_icon.png" />
+                           </image>
+                        </ImageView>
+                        <Label fx:id="username_display_label" layoutX="12.0" layoutY="68.0" text="EddieEagle990" />
+                        <Label layoutX="5.0" layoutY="90.0" text="Message Actions:">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                        </Label>
+                        <ImageView fx:id="LogoutButton12" fitHeight="17.0" fitWidth="40.0" layoutX="11.0" layoutY="181.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/chat_icon.png" />
+                           </image>
+                        </ImageView>
                      </children>
                   </AnchorPane>
                </content>
                <graphic>
                   <ImageView fitHeight="17.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../Images/homePage%20Icon.png" />
+                        <Image url="@../images/home_logo.png" />
                      </image>
                   </ImageView>
                </graphic>
@@ -107,146 +128,44 @@
                         <Separator layoutY="176.0" prefHeight="7.0" prefWidth="84.0" />
                         <Separator layoutX="84.0" orientation="VERTICAL" prefHeight="331.0" prefWidth="1.0" />
                         <Separator layoutY="271.0" prefHeight="7.0" prefWidth="84.0" />
-                        <Button layoutY="-1.0" mnemonicParsing="false" prefHeight="61.0" prefWidth="85.0" text="Students">
+                        <Button fx:id="sort_student_button" layoutY="-1.0" mnemonicParsing="false" onMouseClicked="#sort_student" prefHeight="61.0" prefWidth="85.0" text="Students">
                            <font>
                               <Font name="System Bold" size="12.0" />
                            </font>
                         </Button>
-                        <Button layoutX="-3.0" layoutY="61.0" mnemonicParsing="false" prefHeight="56.0" prefWidth="89.0" text="Professors">
+                        <Button fx:id="sort_professor_button" layoutX="-3.0" layoutY="61.0" mnemonicParsing="false" onMouseClicked="#sort_professor" prefHeight="56.0" prefWidth="89.0" text="Professors">
                            <font>
                               <Font name="System Bold" size="12.0" />
                            </font>
                         </Button>
-                        <Button layoutX="1.0" layoutY="118.0" mnemonicParsing="false" prefHeight="61.0" prefWidth="83.0" text="Others">
+                        <Button fx:id="sort_other_button" layoutX="1.0" layoutY="118.0" mnemonicParsing="false" onMouseClicked="#sort_other" prefHeight="61.0" prefWidth="83.0" text="Others">
                            <font>
                               <Font name="System Bold" size="12.0" />
                            </font>
                         </Button>
-                        <Button layoutX="1.0" layoutY="276.0" mnemonicParsing="false" prefHeight="56.0" prefWidth="85.0" text="Delete">
+                        <Button fx:id="delete_contact_button" layoutX="1.0" layoutY="276.0" mnemonicParsing="false" onMouseClicked="#delete_contact" prefHeight="56.0" prefWidth="85.0" text="Delete" textFill="RED">
                            <font>
                               <Font name="System Bold" size="12.0" />
                            </font>
                         </Button>
-                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1f93ff1f" height="20.0" layoutX="84.0" layoutY="-1.0" stroke="BLACK" strokeType="INSIDE" width="518.0" />
-                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1f93ff1c" height="20.0" layoutX="87.0" layoutY="114.0" stroke="BLACK" strokeType="INSIDE" width="514.0" />
-                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1f93ff1c" height="20.0" layoutX="85.0" layoutY="243.0" stroke="BLACK" strokeType="INSIDE" width="516.0" />
-                        <Text layoutX="90.0" layoutY="13.0" strokeType="OUTSIDE" strokeWidth="0.0" text="A">
-                           <font>
-                              <Font name="System Bold" size="12.0" />
-                           </font>
-                        </Text>
-                        <Text layoutX="94.0" layoutY="129.0" strokeType="OUTSIDE" strokeWidth="0.0" text="B">
-                           <font>
-                              <Font name="System Bold" size="12.0" />
-                           </font>
-                        </Text>
-                        <Text layoutX="94.0" layoutY="258.0" strokeType="OUTSIDE" strokeWidth="0.0" text="C">
-                           <font>
-                              <Font name="System Bold" size="12.0" />
-                           </font>
-                        </Text>
-                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#f0f1f3" height="32.0" layoutX="86.0" layoutY="19.0" stroke="BLACK" strokeType="INSIDE" width="513.0" />
-                        <Text layoutX="184.0" layoutY="39.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name_LastName">
-                           <font>
-                              <Font name="System Bold" size="12.0" />
-                           </font>
-                        </Text>
-                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#f0f1f3" height="32.0" layoutX="86.0" layoutY="51.0" stroke="BLACK" strokeType="INSIDE" width="513.0" />
-                        <Text layoutX="184.0" layoutY="72.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name_LastName">
-                           <font>
-                              <Font name="System Bold" size="12.0" />
-                           </font>
-                        </Text>
-                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#f0f1f3" height="32.0" layoutX="86.0" layoutY="83.0" stroke="BLACK" strokeType="INSIDE" width="513.0" />
-                        <Text layoutX="184.0" layoutY="103.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name_LastName">
-                           <font>
-                              <Font name="System Bold" size="12.0" />
-                           </font>
-                        </Text>
-                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#f0f1f3" height="32.0" layoutX="86.0" layoutY="133.0" stroke="BLACK" strokeType="INSIDE" width="513.0" />
-                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#f0f1f3" height="32.0" layoutX="86.0" layoutY="164.0" stroke="BLACK" strokeType="INSIDE" width="513.0" />
-                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#f0f1f3" height="32.0" layoutX="86.0" layoutY="262.0" stroke="BLACK" strokeType="INSIDE" width="513.0" />
-                        <Text layoutX="184.0" layoutY="153.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name_LastName">
-                           <font>
-                              <Font name="System Bold" size="12.0" />
-                           </font>
-                        </Text>
-                        <Text layoutX="184.0" layoutY="184.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name_LastName">
-                           <font>
-                              <Font name="System Bold" size="12.0" />
-                           </font>
-                        </Text>
-                        <Text layoutX="184.0" layoutY="280.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name_LastName">
-                           <font>
-                              <Font name="System Bold" size="12.0" />
-                           </font>
-                        </Text>
-                        <Text layoutX="392.0" layoutY="39.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Email" />
-                        <Text layoutX="392.0" layoutY="72.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Email" />
-                        <Text layoutX="392.0" layoutY="104.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Email" />
-                        <Text layoutX="392.0" layoutY="154.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Email" />
-                        <Text layoutX="392.0" layoutY="184.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Email" />
-                        <Text layoutX="392.0" layoutY="283.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Email" />
-                        <Button layoutX="531.0" layoutY="22.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="26.0">
-                           <graphic>
-                              <ImageView fitHeight="25.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@../Images/message%20icon.jpg" />
-                                 </image>
-                              </ImageView>
-                           </graphic>
-                        </Button>
-                        <Button layoutX="531.0" layoutY="54.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="26.0">
-                           <graphic>
-                              <ImageView fitHeight="25.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@../Images/message%20icon.jpg" />
-                                 </image>
-                              </ImageView>
-                           </graphic>
-                        </Button>
-                        <Button layoutX="531.0" layoutY="86.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="26.0">
-                           <graphic>
-                              <ImageView fitHeight="25.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@../Images/message%20icon.jpg" />
-                                 </image>
-                              </ImageView>
-                           </graphic>
-                        </Button>
-                        <Button layoutX="531.0" layoutY="137.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="26.0">
-                           <graphic>
-                              <ImageView fitHeight="25.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@../Images/message%20icon.jpg" />
-                                 </image>
-                              </ImageView>
-                           </graphic>
-                        </Button>
-                        <Button layoutX="531.0" layoutY="166.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="26.0">
-                           <graphic>
-                              <ImageView accessibleRole="BUTTON" fitHeight="25.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@../Images/message%20icon.jpg" />
-                                 </image>
-                              </ImageView>
-                           </graphic>
-                        </Button>
-                        <Button layoutX="531.0" layoutY="265.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="26.0">
-                           <graphic>
-                              <ImageView accessibleRole="BUTTON" fitHeight="25.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@../Images/message%20icon.jpg" />
-                                 </image>
-                              </ImageView>
-                           </graphic>
-                        </Button>
+                        <Button fx:id="go_to_convo_button" layoutX="487.0" layoutY="25.0" mnemonicParsing="false" onMouseClicked="#go_to_contact_convo" prefHeight="28.0" prefWidth="34.0" />
+                        <TableView fx:id="contacts_tableview" layoutX="111.0" layoutY="21.0" prefHeight="292.0" prefWidth="360.0">
+                          <columns>
+                            <TableColumn fx:id="name_col" prefWidth="75.0" text="Name" />
+                            <TableColumn fx:id="username_col" prefWidth="75.0" text="Username" />
+                          </columns>
+                        </TableView>
+                        <ImageView fitHeight="25.0" fitWidth="20.0" layoutX="494.0" layoutY="29.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/message.png" />
+                           </image>
+                        </ImageView>
                      </children></AnchorPane>
                </content>
                <graphic>
                   <ImageView fitHeight="19.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../Images/Contact%20Icon.jpg" />
+                        <Image url="@../images/contacts_icon.png" />
                      </image>
                   </ImageView>
                </graphic>
@@ -261,27 +180,18 @@
                <graphic>
                   <ImageView fitHeight="17.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../Images/setting%20icon.png" />
+                        <Image url="@../images/settings.png" />
                      </image>
                   </ImageView>
                </graphic>
             </Tab>
         </tabs>
       </TabPane>
-      <Button layoutX="418.0" layoutY="8.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="20.0">
+      <Button layoutX="409.0" layoutY="8.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="20.0">
          <graphic>
             <ImageView fitHeight="20.0" fitWidth="17.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../Images/search%20icon.png" />
-               </image>
-            </ImageView>
-         </graphic>
-      </Button>
-      <Button layoutX="489.0" layoutY="4.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="26.0">
-         <graphic>
-            <ImageView fitHeight="20.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../Images/notification%20icon.png" />
+                  <Image url="@../images/search_icon.png" />
                </image>
             </ImageView>
          </graphic>

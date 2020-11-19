@@ -18,7 +18,7 @@
       <Hyperlink fx:id="Forgot_Password_hyperlink" layoutX="190.0" layoutY="291.0" onMouseClicked="#get_forgot_password" text="Forgot Password?" />
       <ImageView fx:id="login_image_view" fitHeight="111.0" fitWidth="172.0" layoutX="14.0" layoutY="36.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../sample/iEagleLogo.png" />
+            <Image url="@../images/iEagleLogo.png" />
          </image></ImageView>
    </children>
 </AnchorPane>

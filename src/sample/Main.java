@@ -1,6 +1,8 @@
 package sample;
 
 import java.io.IOException;
+import java.sql.Time;
+import java.util.ArrayList;
 import javafx.application.Application;
 import javafx.event.Event;
 import javafx.fxml.FXMLLoader;
@@ -8,11 +10,25 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import java.sql.Time;
+import java.time.LocalTime;
+import java.util.Date;
 
 public class Main extends Application {
+    public static iMessageUser currentUser = new iMessageUser("Breanna", "Rhodes", "bjrhodes8553");
 
     @Override
     public void start(Stage primaryStage) throws Exception{
+        ArrayList<Message> testlist = new ArrayList<>();
+        for(Message x : Database_Accessor.getMessages(currentUser)){
+            testlist.add(x);
+        }
+        for(Message x : testlist){
+            System.out.println(x);
+        }
+
+
+
         Parent root = FXMLLoader.load(getClass().getResource("Login_FXML.fxml"));
         Scene sceneMain = new Scene(root);
         primaryStage.setTitle("iEagle");
