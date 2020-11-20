@@ -6,6 +6,8 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.Socket;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -35,7 +37,12 @@ public class Client {
     // The displayed IPv4 address is my address, yours will be different
     // Port number is pretty arbitrary, so no reason to change it
     // #########################################################################
-    Client client = new Client("10.0.0.193", 6177);
+
+    //Tamara's IPv4:10.0.0.193
+    //Bre's IPv4: 172.20.10.4
+    //Server ports start on my computer at 6010, so anything over that works.
+
+    Client client = new Client("172.20.10.4", 6177);
 
     // Creates listener from interface
     // Listens for whether users are online or offline and prints them
@@ -69,29 +76,31 @@ public class Client {
       // Scanner currently used for input
       // Replace with GUI textfield
       Scanner scanner = new Scanner(System.in);
-      String email;
-      String password;
+      String email = Main.currentUser.getEmail();
+      String password = Main.currentUser.getPassword();
 
       System.out.println("Connected!");
-      System.out.println("Email: ");
-      email = scanner.nextLine();
-      System.out.println("Password: ");
-      password = scanner.nextLine();
+      System.out.println("Your Username: "+ email);
+      //email = scanner.nextLine();
+      System.out.println("Password: "+ password);
+     // password = scanner.nextLine();
 
       // If client.SignIn returns true (meaning sign-in was successful)
+      Message liveMessage = Database_Accessor.getLiveMessage();
       if (client.signIn(email, password)) {
-        String recipient;
-        String messageContent;
-
+        String recipient = liveMessage.getChat_contact();
+        String messageContent = liveMessage.getMessage_context();
         System.out.println("Sign-In Successful! :)");
 
         // Currently can only send one message since this isn't being
-        // controlled by a GUI (yet)
-        System.out.println("Send message to: ");
-        recipient = scanner.nextLine();
-        System.out.println("Compose message: ");
-        messageContent = scanner.nextLine();
+        // controlled by a GUI
+
+        System.out.println("Send message to: " + recipient);
+        //recipient = scanner.nextLine();
+        System.out.println("Compose message: " + messageContent);
+        //messageContent = scanner.nextLine();
         client.sendMessage(recipient, messageContent);
+
       } else {
         System.out.println("Incorrect email or password");
       }

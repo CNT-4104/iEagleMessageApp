@@ -21,7 +21,7 @@ public class Login_Controller {
   private Label Login_Header_Label;
 
   @FXML
-  private TextField email_textfield;
+  private TextField username_textfield;
 
   @FXML
   private TextField password_textfield;
@@ -54,8 +54,19 @@ public class Login_Controller {
   }
 
   @FXML
-  void login_user(MouseEvent event) {
-    Main.createNewScene(event, "Home_Page_FXML.fxml");
+  private void login_user(MouseEvent event) {
+   String username = username_textfield.getText();
+   String password = password_textfield.getText();
+    if(Database_Accessor.verifyAccount(username, password).equals(username)){
+      Main.currentUser = new iMessageUser(username);
+      System.out.println("Current user:" + Main.currentUser.getUsername());
+      Main.createNewScene(event, "Home_Page_FXML.fxml");
+    }
+    else{
+      System.out.println("Please check what you entered and try again");
+    }
+
+    System.out.println("Logging in");
 
   }
 

@@ -1,6 +1,11 @@
 package sample;
 
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.sql.Time;
 import java.util.ArrayList;
 import javafx.application.Application;
@@ -15,19 +20,11 @@ import java.time.LocalTime;
 import java.util.Date;
 
 public class Main extends Application {
-    public static iMessageUser currentUser = new iMessageUser("Breanna", "Rhodes", "bjrhodes8553");
+    public static iMessageUser currentUser;
+    public static Message currentMessage;
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        ArrayList<Message> testlist = new ArrayList<>();
-        for(Message x : Database_Accessor.getMessages(currentUser)){
-            testlist.add(x);
-        }
-        for(Message x : testlist){
-            System.out.println(x);
-        }
-
-
 
         Parent root = FXMLLoader.load(getClass().getResource("Login_FXML.fxml"));
         Scene sceneMain = new Scene(root);

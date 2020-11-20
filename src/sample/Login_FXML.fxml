@@ -11,7 +11,7 @@
 <AnchorPane fx:id="Login_Anchorpane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Login_Controller">
    <children>
       <Label fx:id="Login_Header_Label" layoutX="213.0" layoutY="83.0" text="iEagle Messaging Application" />
-      <TextField fx:id="email_textfield" layoutX="130.0" layoutY="187.0" prefHeight="26.0" prefWidth="322.0" promptText="Email" />
+      <TextField fx:id="username_textfield" layoutX="130.0" layoutY="187.0" prefHeight="26.0" prefWidth="322.0" promptText="Email" />
       <TextField fx:id="password_textfield" layoutX="130.0" layoutY="227.0" prefHeight="26.0" prefWidth="322.0" promptText="Password" />
       <Button fx:id="login_button" layoutX="374.0" layoutY="277.0" mnemonicParsing="false" onMouseClicked="#login_user" prefHeight="26.0" prefWidth="77.0" text="Login" />
       <Hyperlink fx:id="Activate_Account_hyperlink" layoutX="193.0" layoutY="265.0" onMouseClicked="#activate_new_account" text="Activate Account" />

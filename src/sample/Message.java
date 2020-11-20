@@ -10,14 +10,26 @@ public class Message {
   String chat_contact;
   LocalDate date;
   String message_context;
+  int message_id;
+
+
 
   public Message(String message_type, LocalTime time_of_message, String chat_contact,
-      LocalDate date, String message_context) {
+      LocalDate date, String message_context, int message_id) {
     this.message_type = message_type;
     this.time_of_message = time_of_message;
     this.chat_contact = chat_contact;
     this.date = date;
     this.message_context = message_context;
+    this.message_id = message_id;
+  }
+
+  public int getMessage_id() {
+    return message_id;
+  }
+
+  public void setMessage_id(int message_id) {
+    this.message_id = message_id;
   }
 
   public String getMessage_type() {
