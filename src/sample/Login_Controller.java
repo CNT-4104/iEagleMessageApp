@@ -1,5 +1,6 @@
 package sample;
 
+import java.io.IOException;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Hyperlink;
@@ -64,11 +65,14 @@ public class Login_Controller {
 
 
   @FXML
-  public void login_user(MouseEvent event) {
+  public void login_user(MouseEvent event) throws IOException {
    String username = username_textfield.getText();
    String password = password_textfield.getText();
+   System.out.println(username);
+   System.out.println(password);
+   System.out.println(Main.getClient().signIn(username, password));
 
-    if(Database_Accessor.verifyAccount(username, password).equals(username)){
+    if(Main.getClient().signIn(username, password)){
       Main.currentiMessageUser = Database_Accessor.getiMessageUser(username);
       System.out.println("Current user:" + Main.currentiMessageUser.getUsername());
       Main.createNewScene(event, "Home_Page_FXML.fxml");

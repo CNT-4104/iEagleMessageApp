@@ -139,10 +139,7 @@ public class ServerThread extends Thread {
       // In future must check if combination of email and password present in
       // local database
       // ######################################################################
-      if ((email.equalsIgnoreCase("Bob")
-          && password.equalsIgnoreCase("bob1"))
-          || (email.equalsIgnoreCase("Kim") && password
-          .equalsIgnoreCase("Kim1"))) {
+      if (Database_Accessor.verifyAccount(email, password).equals(email)) {
         this.email = email;
         outputStream.write("Sign-In Successful!\n".getBytes());
         System.out.println("Sign-In Successful: " + email);

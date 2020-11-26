@@ -32,89 +32,15 @@ public class Client {
     this.serverPort = serverPort;
   }
 
+  // THIS CAN BE REMOVED, THERE'S NO NEED FOR IT
   // MAIN ----------------------------------------------------------------------
-  public static void main(String[] args) throws IOException {
-    // IMPORTANT ###############################################################
-    // Replace 'localhost' with server's IPv4 address
-    // The displayed IPv4 address is my address, yours will be different
-    // Port number is pretty arbitrary, so no reason to change it
-    // #########################################################################
-
-    iMessageUser onlineUser = Main.currentiMessageUser;
-    Message currentOutgoingMessage = Main.currentMessage;
-
-    String username = "";
-    String password = "";
-    Client client = new Client("10.0.0.43", 139);
-
-    // Creates listener from interface
-    // Listens for whether users are online or offline and prints them
-    client.addUserStatusListener(new UserStatusListener() {
-      @Override
-      public void isOnline(String username) {
-        System.out.println(username + " is online.");
-      }
-
-      @Override
-      public void isOffline(String username) {
-        System.out.println(username + " is offline.");
-      }
-    });
-
-
-
-    // Creates listener from interface
-    // Listens for incoming messages and prints them
-    client.addMessageListener(new MessageListener() {
-      @Override
-      public void uponReceivingMessage(String sender, String messageContent) {
-        System.out.println(sender + ": " + messageContent);
-      }
-    });
-
-    // If client is able to connect to the server
-    if (client.connectToServer()) {
-      // TO-DO #################################################################
-      // Basically everything in here needs to be controlled by the GUI
-      // Currently the software just asks you to input things in order
-
-      // Scanner currently used for input
-      // Replace with GUI textfield
-      //Scanner scanner = new Scanner(System.in);
-      username = onlineUser.getUsername();
-      password = onlineUser.getPassword();
-
-
-
-      System.out.println("Connected!");
-      System.out.println("Your Username: "+  username);
-      //email = scanner.nextLine();
-      System.out.println("Password: "+ password);
-     // password = scanner.nextLine();
-
-      // If client.SignIn returns true (meaning sign-in was successful)
-      if (client.signIn(username, password)) {
-        String recipient = currentOutgoingMessage.getChat_contact();
-        String messageContent = currentOutgoingMessage.getMessage_context();
-        System.out.println("Sign-In Successful! :)");
-
-        // Currently can only send one message since this isn't being
-        // controlled by a GUI
-
-        System.out.println("Send message to: " + recipient);
-        //recipient = scanner.nextLine();
-        System.out.println("Compose message: " + messageContent);
-        //messageContent = scanner.nextLine();
-        client.sendMessage(recipient, messageContent);
-
-      } else {
-        System.out.println("Incorrect email or password");
-      }
-      // #######################################################################
-    } else {
-      System.out.println("Failed to connect!");
-    }
-  }
+//  public static void main(String[] args) throws IOException {
+//    System.out.println("TESTING!!!");
+//    iMessageUser onlineUser = Main.currentiMessageUser;
+//    Message currentOutgoingMessage = Main.currentMessage;
+//    String username = "";
+//    String password = "";
+//  }
 
   // SEND MESSAGE --------------------------------------------------------------
   // Will send message to server, which relays to recipient client
@@ -134,9 +60,11 @@ public class Client {
   }
 
   // SIGN-IN -------------------------------------------------------------------
-  private boolean signIn(String username, String password) throws IOException {
+  public boolean signIn(String username, String password) throws IOException {
     String serverInput;
 
+    System.out.println("Client: " + username);
+    System.out.println("Client: " + password);
     // Must follow format shown in manageClientSocket in ServerThread
     // signin email password
     serverOut.write(("signin " + username + " " + password + "\n").getBytes());
@@ -231,7 +159,7 @@ public class Client {
   }
 
   // CONNECT TO SERVER ---------------------------------------------------------
-  private boolean connectToServer() {
+  public boolean connectToServer() {
     // If can connect: return true
     // If can't connect: return false
     try {
