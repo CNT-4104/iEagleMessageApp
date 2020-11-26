@@ -5,23 +5,55 @@ import java.time.LocalTime;
 
 
 public class Message {
+  int message_id;
+  int current_user_id;
   String message_type;
   LocalTime time_of_message;
   String chat_contact;
   LocalDate date;
   String message_context;
-  int message_id;
 
 
-
-  public Message(String message_type, LocalTime time_of_message, String chat_contact,
-      LocalDate date, String message_context, int message_id) {
+  public Message(int message_id, int current_user_id, String message_type,
+      LocalTime time_of_message, String chat_contact, LocalDate date,
+      String message_context) {
+    this.message_id = message_id;
+    this.current_user_id = current_user_id;
     this.message_type = message_type;
     this.time_of_message = time_of_message;
     this.chat_contact = chat_contact;
     this.date = date;
     this.message_context = message_context;
-    this.message_id = message_id;
+  }
+
+  public Message(int current_user_id, String message_type,
+      LocalTime time_of_message, String chat_contact, LocalDate date,
+      String message_context) {
+    this.current_user_id = current_user_id;
+    this.message_type = message_type;
+    this.time_of_message = time_of_message;
+    this.chat_contact = chat_contact;
+    this.date = date;
+    this.message_context = message_context;
+  }
+
+  public Message(String message_type, LocalTime time_of_message, String chat_contact,
+      LocalDate date, String message_context) {
+    this.message_type = message_type;
+    this.time_of_message = time_of_message;
+    this.chat_contact = chat_contact;
+    this.date = date;
+    this.message_context = message_context;
+  }
+
+
+
+  public int getCurrent_user_id() {
+    return current_user_id;
+  }
+
+  public void setCurrent_user_id(int current_user_id) {
+    this.current_user_id = current_user_id;
   }
 
   public int getMessage_id() {

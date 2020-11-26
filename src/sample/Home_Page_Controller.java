@@ -1,7 +1,6 @@
 package sample;
 
 import java.util.ArrayList;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -51,6 +50,8 @@ public class Home_Page_Controller {
 
   @FXML
   private Button go_to_chats_button;
+  @FXML
+  private Button unread_button;
 
   @FXML
   private Button sort_student_button;
@@ -100,35 +101,38 @@ public class Home_Page_Controller {
 
   @FXML
   void initialize() {
-
+    int currentUserID = Main.currentiMessageUser.getUser_id();
     name_col.setCellValueFactory(new PropertyValueFactory<>("Name"));
     username_col.setCellValueFactory(new PropertyValueFactory<>("Username"));
     type_col.setCellValueFactory(new PropertyValueFactory<>("contact_type"));
-    ArrayList<Contact> usersContactList = new ArrayList<>();
-    for (Contact x : Database_Accessor.getContacts()) {
-      usersContactList.add(x);
-    }
-    contacts_tableview.getItems().addAll(usersContactList);
+    contacts_tableview.getItems().addAll(Database_Accessor.getContacts(currentUserID));
     }
 
 
   @FXML
   void delete_contact(MouseEvent event) {
-
-    ObservableList<Contact> ContactsList;
-    ContactsList = contacts_tableview.getSelectionModel().getSelectedItems();
-    Contact contactName = ContactsList.get(0);
-    String contactToDelete = contactName.getUsername();
+    Contact deletedContact = contacts_tableview.getSelectionModel().getSelectedItem();
+    String contactToDelete = deletedContact.getUsername();
     Database_Accessor.deleteContact(contactToDelete);
     contacts_tableview.getItems().remove(contactToDelete);
-    System.out.println("Contact will be deleted");
-
+    System.out.println("Contact was be deleted");
   }
 
   @FXML
   void go_to_chats(MouseEvent event) {
     Main.createNewScene(event, "chat_screen_FXML.fxml");
 
+  }
+
+  @FXML
+  void get_unread_messages(MouseEvent event) {
+    messages_tableview.getItems().clear();
+    chat_contact_col.setCellValueFactory(new PropertyValueFactory<>("chat_contact"));
+    context_col.setCellValueFactory(new PropertyValueFactory<>("message_context"));
+    date_col.setCellValueFactory(new PropertyValueFactory<>("date"));
+    time_col.setCellValueFactory(new PropertyValueFactory<>("time_of_message"));
+    message_type_col.setCellValueFactory(new PropertyValueFactory<>("message_type"));
+    messages_tableview.getItems().addAll(Database_Accessor.getUnreadMessage(Main.currentiMessageUser.getUser_id()));
   }
 
 
@@ -141,23 +145,13 @@ public class Home_Page_Controller {
 
   @FXML
   void go_to_deleted_messages(MouseEvent event) {
+    messages_tableview.getItems().clear();
     chat_contact_col.setCellValueFactory(new PropertyValueFactory<>("chat_contact"));
     context_col.setCellValueFactory(new PropertyValueFactory<>("message_context"));
     date_col.setCellValueFactory(new PropertyValueFactory<>("date"));
     time_col.setCellValueFactory(new PropertyValueFactory<>("time_of_message"));
     message_type_col.setCellValueFactory(new PropertyValueFactory<>("message_type"));
-    ArrayList<Message> deletedMessagesList = new ArrayList<>();
-    for(Message x : Database_Accessor.getMessages("asmith2341")){
-      if(x.getMessage_type().equals("deleted")){
-        deletedMessagesList.add(x);
-      }
-      else{
-        System.out.println("");
-      }
-  }
-    messages_tableview.getItems().addAll(deletedMessagesList);
-
-
+    messages_tableview.getItems().addAll(Database_Accessor.getDeletedMessage(Main.currentiMessageUser.getUser_id()));
   }
 
   @FXML
@@ -167,12 +161,10 @@ public class Home_Page_Controller {
 
   @FXML
   void sort_other(MouseEvent event) {
+    int currentUserID = Main.currentiMessageUser.getUser_id();
     contacts_tableview.getItems().clear();
-    name_col.setCellValueFactory(new PropertyValueFactory<>("Name"));
-    username_col.setCellValueFactory(new PropertyValueFactory<>("Username"));
-    type_col.setCellValueFactory(new PropertyValueFactory<>("contact_type"));
     ArrayList<Contact> otherContactList = new ArrayList<>();
-    for (Contact x : Database_Accessor.getContacts()) {
+    for (Contact x : Database_Accessor.getContacts(currentUserID)) {
       if (x.getContact_type().equals("Other")) {
         otherContactList.add(x);
       }
@@ -183,12 +175,10 @@ public class Home_Page_Controller {
 
   @FXML
   void sort_professor(MouseEvent event) {
+    int currentUserID = Main.currentiMessageUser.getUser_id();
     contacts_tableview.getItems().clear();
-    name_col.setCellValueFactory(new PropertyValueFactory<>("Name"));
-    username_col.setCellValueFactory(new PropertyValueFactory<>("Username"));
-    type_col.setCellValueFactory(new PropertyValueFactory<>("contact_type"));
     ArrayList<Contact> professorContactList = new ArrayList<>();
-    for (Contact x : Database_Accessor.getContacts()) {
+    for (Contact x : Database_Accessor.getContacts(currentUserID)) {
       if (x.getContact_type().equals("Professor")) {
         professorContactList.add(x);
       }
@@ -198,12 +188,10 @@ public class Home_Page_Controller {
 
   @FXML
   void sort_student(MouseEvent event) {
+    int currentUserID = Main.currentiMessageUser.getUser_id();
     contacts_tableview.getItems().clear();
-    name_col.setCellValueFactory(new PropertyValueFactory<>("Name"));
-    username_col.setCellValueFactory(new PropertyValueFactory<>("Username"));
-    type_col.setCellValueFactory(new PropertyValueFactory<>("contact_type"));
     ArrayList<Contact> studentContactList = new ArrayList<>();
-    for (Contact x : Database_Accessor.getContacts()) {
+    for (Contact x : Database_Accessor.getContacts(currentUserID)){
       if (x.getContact_type().equals("Student")) {
         studentContactList.add(x);
       }

@@ -7,6 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Time;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import javafx.application.Application;
 import javafx.event.Event;
@@ -18,14 +19,15 @@ import javafx.stage.Stage;
 import java.sql.Time;
 import java.time.LocalTime;
 import java.util.Date;
+import org.h2.engine.Database;
 
 public class Main extends Application {
-    public static iMessageUser currentUser;
+    public static iMessageUser currentiMessageUser;
     public static Message currentMessage;
+
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-
         Parent root = FXMLLoader.load(getClass().getResource("Login_FXML.fxml"));
         Scene sceneMain = new Scene(root);
         primaryStage.setTitle("iEagle");

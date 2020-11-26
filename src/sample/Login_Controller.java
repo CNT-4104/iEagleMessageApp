@@ -4,8 +4,8 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -21,13 +21,17 @@ public class Login_Controller {
   private Label Login_Header_Label;
 
   @FXML
-  private TextField username_textfield;
+  public TextField username_textfield;
+
 
   @FXML
-  private TextField password_textfield;
+  public PasswordField password_textfield;
 
   @FXML
   private Button login_button;
+
+  @FXML
+  private Label label_forgot_password;
 
   @FXML
   private Hyperlink Activate_Account_hyperlink;
@@ -50,16 +54,23 @@ public class Login_Controller {
 
   @FXML
   void get_forgot_password(MouseEvent event) {
+    String username = username_textfield.getText();
+    String forgotPasswordMessage = "Your password has been emailed to: " + username + "@eagle.fgcu.edu";
+    label_forgot_password.setText(forgotPasswordMessage);
 
   }
 
+
+
+
   @FXML
-  private void login_user(MouseEvent event) {
+  public void login_user(MouseEvent event) {
    String username = username_textfield.getText();
    String password = password_textfield.getText();
+
     if(Database_Accessor.verifyAccount(username, password).equals(username)){
-      Main.currentUser = new iMessageUser(username);
-      System.out.println("Current user:" + Main.currentUser.getUsername());
+      Main.currentiMessageUser = Database_Accessor.getiMessageUser(username);
+      System.out.println("Current user:" + Main.currentiMessageUser.getUsername());
       Main.createNewScene(event, "Home_Page_FXML.fxml");
     }
     else{
@@ -69,5 +80,7 @@ public class Login_Controller {
     System.out.println("Logging in");
 
   }
+
+
 
 }

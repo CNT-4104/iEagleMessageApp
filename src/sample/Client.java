@@ -6,12 +6,12 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.Socket;
-import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Client {
+
+  //Global objects will be updated in other classes.
 
   private final String serverIP;
   private final int serverPort;
@@ -21,8 +21,10 @@ public class Client {
   private BufferedReader bufferedReader;
   private ArrayList<UserStatusListener> userStatusListenerArrayList =
       new ArrayList<>();
-  private ArrayList<MessageListener> messageListenerArrayList =
+  private static ArrayList<MessageListener> messageListenerArrayList =
       new ArrayList<>();
+
+
 
   // CONSTRUCTOR ---------------------------------------------------------------
   public Client(String serverIP, int serverPort) {
@@ -38,25 +40,28 @@ public class Client {
     // Port number is pretty arbitrary, so no reason to change it
     // #########################################################################
 
-    //Tamara's IPv4:10.0.0.193
-    //Bre's IPv4: 172.20.10.4
-    //Server ports start on my computer at 6010, so anything over that works.
+    iMessageUser onlineUser = Main.currentiMessageUser;
+    Message currentOutgoingMessage = Main.currentMessage;
 
-    Client client = new Client("172.20.10.4", 6177);
+    String username = "";
+    String password = "";
+    Client client = new Client("10.0.0.43", 139);
 
     // Creates listener from interface
     // Listens for whether users are online or offline and prints them
     client.addUserStatusListener(new UserStatusListener() {
       @Override
-      public void isOnline(String email) {
-        System.out.println(email + " is online.");
+      public void isOnline(String username) {
+        System.out.println(username + " is online.");
       }
 
       @Override
-      public void isOffline(String email) {
-        System.out.println(email + " is offline.");
+      public void isOffline(String username) {
+        System.out.println(username + " is offline.");
       }
     });
+
+
 
     // Creates listener from interface
     // Listens for incoming messages and prints them
@@ -75,21 +80,22 @@ public class Client {
 
       // Scanner currently used for input
       // Replace with GUI textfield
-      Scanner scanner = new Scanner(System.in);
-      String email = Main.currentUser.getEmail();
-      String password = Main.currentUser.getPassword();
+      //Scanner scanner = new Scanner(System.in);
+      username = onlineUser.getUsername();
+      password = onlineUser.getPassword();
+
+
 
       System.out.println("Connected!");
-      System.out.println("Your Username: "+ email);
+      System.out.println("Your Username: "+  username);
       //email = scanner.nextLine();
       System.out.println("Password: "+ password);
      // password = scanner.nextLine();
 
       // If client.SignIn returns true (meaning sign-in was successful)
-      Message liveMessage = Database_Accessor.getLiveMessage();
-      if (client.signIn(email, password)) {
-        String recipient = liveMessage.getChat_contact();
-        String messageContent = liveMessage.getMessage_context();
+      if (client.signIn(username, password)) {
+        String recipient = currentOutgoingMessage.getChat_contact();
+        String messageContent = currentOutgoingMessage.getMessage_context();
         System.out.println("Sign-In Successful! :)");
 
         // Currently can only send one message since this isn't being
@@ -128,12 +134,12 @@ public class Client {
   }
 
   // SIGN-IN -------------------------------------------------------------------
-  private boolean signIn(String email, String password) throws IOException {
+  private boolean signIn(String username, String password) throws IOException {
     String serverInput;
 
     // Must follow format shown in manageClientSocket in ServerThread
     // signin email password
-    serverOut.write(("signin " + email + " " + password + "\n").getBytes());
+    serverOut.write(("signin " + username + " " + password + "\n").getBytes());
     serverInput = bufferedReader.readLine(); // read response from server
     // If response reads "Sign-In Successful!"
     if (serverInput.equals("Sign-In Successful!")) {
@@ -190,6 +196,8 @@ public class Client {
 
   // MANAGE INCOMING MESSAGES FROM USERS ---------------------------------------
   private void manageMessage(String[] tokens) {
+    String password = Main.currentiMessageUser.getPassword();
+    String username = Main.currentiMessageUser.getUsername();
     String messageContent = null;
 
     // i starts at 2 since the third token is the first letter of the message
@@ -209,16 +217,16 @@ public class Client {
 
   // MANAGE ONLINE/OFFLINE STATUS ----------------------------------------------
   private void manageOffline(String[] tokens) {
-    String email = tokens[1];
+    String username = tokens[1];
     for (UserStatusListener listener : userStatusListenerArrayList) {
-      listener.isOffline(email);
+      listener.isOffline(username);
     }
   }
 
   private void manageOnline(String[] tokens) {
-    String email = tokens[1];
+    String username = tokens[1];
     for (UserStatusListener listener : userStatusListenerArrayList) {
-      listener.isOnline(email);
+      listener.isOnline(username);
     }
   }
 
@@ -252,6 +260,7 @@ public class Client {
   // Message
   public void addMessageListener(MessageListener listener) {
     messageListenerArrayList.add(listener);
+
   }
   public void removeMessageListener(MessageListener listener) {
     messageListenerArrayList.remove(listener);
