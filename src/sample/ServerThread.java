@@ -127,7 +127,7 @@ public class ServerThread extends Thread {
   }
 
   // MANAGE SIGN-IN -----------------------------------------------------------
-  private void manageSignIn(OutputStream outputStream, String[] tokens)
+  public void manageSignIn(OutputStream outputStream, String[] tokens)
       throws IOException {
     // If number tokens is more than 3 then there's an unnecessary word
     if (tokens.length == 3) {
@@ -146,6 +146,7 @@ public class ServerThread extends Thread {
 
         // List of online users
         ArrayList<ServerThread> serverThreadAL = server.getServerThreadAL();
+
 
         // For each thread aka online client in serverThreadAL
         // Remember Python for loops

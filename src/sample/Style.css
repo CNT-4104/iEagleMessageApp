@@ -10,9 +10,7 @@
   -fx-stroke: #000000;
   -fx-stroke-width: 1px;
 }
-#login_image_view{
-  -fx-image: "iEagleLogo.png";
-}
+
 
 #Activate_Account_hyperlink .text{
   -fx-font-size: 18px;

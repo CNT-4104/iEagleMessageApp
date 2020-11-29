@@ -26,7 +26,7 @@ public class Main extends Application {
     // We should make getters / setters for these instead of making them public
     public static iMessageUser currentiMessageUser;
     public static Message currentMessage;
-    private static Client client = new Client("localhost", 6177);
+    private static Client client = new Client("10.0.0.43", 6177);
 
 
     @Override

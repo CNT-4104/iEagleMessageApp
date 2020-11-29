@@ -15,10 +15,10 @@ public class Client {
 
   private final String serverIP;
   private final int serverPort;
-  private Socket socket;
-  private InputStream serverIn;
-  private OutputStream serverOut;
-  private BufferedReader bufferedReader;
+  private Socket socket = null;
+  private InputStream serverIn = null;
+  private OutputStream serverOut = null;
+  private BufferedReader bufferedReader = null;
   private ArrayList<UserStatusListener> userStatusListenerArrayList =
       new ArrayList<>();
   private static ArrayList<MessageListener> messageListenerArrayList =
@@ -32,19 +32,10 @@ public class Client {
     this.serverPort = serverPort;
   }
 
-  // THIS CAN BE REMOVED, THERE'S NO NEED FOR IT
-  // MAIN ----------------------------------------------------------------------
-//  public static void main(String[] args) throws IOException {
-//    System.out.println("TESTING!!!");
-//    iMessageUser onlineUser = Main.currentiMessageUser;
-//    Message currentOutgoingMessage = Main.currentMessage;
-//    String username = "";
-//    String password = "";
-//  }
 
   // SEND MESSAGE --------------------------------------------------------------
   // Will send message to server, which relays to recipient client
-  private void sendMessage(String recipient, String messageContent)
+  public void sendMessage(String recipient, String messageContent)
       throws IOException {
     // Must follow format shown in manageClientSocket in ServerThread
     // msg recipientEmail messageContent
@@ -61,12 +52,14 @@ public class Client {
 
   // SIGN-IN -------------------------------------------------------------------
   public boolean signIn(String username, String password) throws IOException {
-    String serverInput;
+    String serverInput = "";
+    //System.out.println("Client: " + username);
+    //System.out.println("Client: " + password);
 
-    System.out.println("Client: " + username);
-    System.out.println("Client: " + password);
+
     // Must follow format shown in manageClientSocket in ServerThread
     // signin email password
+
     serverOut.write(("signin " + username + " " + password + "\n").getBytes());
     serverInput = bufferedReader.readLine(); // read response from server
     // If response reads "Sign-In Successful!"
@@ -81,7 +74,7 @@ public class Client {
   // READ FROM SERVER ----------------------------------------------------------
   // Reads any data send from server
   // Including: new messages, who's online, and who's offline
-  private void startMessageReader() {
+  public void startMessageReader() {
     Thread thread = new Thread(() -> readMessage());
     thread.start();
   }
@@ -173,6 +166,7 @@ public class Client {
       e.printStackTrace();
     }
     // It's only get here if the try fails (aka isn't able to connect)
+    System.out.println("Connection Failed");
     return false;
   }
 

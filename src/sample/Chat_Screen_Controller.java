@@ -1,5 +1,6 @@
 package sample;
 
+import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
@@ -11,6 +12,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
+import javax.xml.bind.Marshaller.Listener;
 
 
 public class Chat_Screen_Controller {
@@ -81,7 +83,7 @@ public class Chat_Screen_Controller {
   }
 
   @FXML
-  void send_message(MouseEvent event) {
+  void send_message(MouseEvent event) throws IOException {
     Contact recipient = chat_tableview.getSelectionModel().getSelectedItem();
     Message message =
         new Message(Main.currentiMessageUser.getUser_id(),
@@ -93,20 +95,49 @@ public class Chat_Screen_Controller {
     Main.currentMessage = message;
     String messageContext = reply_textfield.getText();
     Database_Accessor.addMessage(message);
-    chat_textarea.appendText(Main.currentiMessageUser.getUsername()+ ": " + message.message_context
-        + "     "+message.getTime_of_message() + "\n");
+    Main.getClient().sendMessage(recipient.getUsername(), messageContext);
+    showMessage();
     reply_textfield.clear();
   }
 
-
-  public void initialize(){
-    chat_name_col.setCellValueFactory(new PropertyValueFactory<>("Name"));
-    chat_usesrname_col.setCellValueFactory(new PropertyValueFactory<>("Username"));
-    ArrayList<Contact> chat_contact_list = new ArrayList<>();
-    for(Contact x: Database_Accessor.getContacts(Main.currentiMessageUser.getUser_id())){
-      chat_contact_list.add(x);
-    }
-    chat_tableview.getItems().addAll(chat_contact_list);
+  //Uses message listener to receive incoming messages from the server.
+  public void showMessage(){
+    MessageListener messageListener = new MessageListener() {
+      @Override
+      public void uponReceivingMessage(String sender, String messageContent) {
+        chat_textarea.appendText(sender + ": " + messageContent + "          "+LocalTime.now() + "\n");
+      }
+    };
   }
 
-}
+  public void get_user_status(String onlineUser, String offlineUser){
+    UserStatusListener userStatusListener = new UserStatusListener() {
+      ArrayList<Contact> online_contact_list = new ArrayList<>();
+      ArrayList<Contact> offline_contact_list = new ArrayList<>();
+      @Override
+      public void isOnline(String onlineUser) {
+        Contact onlineContact = Database_Accessor.getOnlineContacts(onlineUser);
+        online_contact_list.add(onlineContact);
+        chat_tableview.getItems().addAll(online_contact_list);
+      }
+
+      @Override
+      public void isOffline(String offlineUser) {
+        Contact offlineContact = Database_Accessor.getOnlineContacts(offlineUser);
+        offline_contact_list.add(offlineContact);
+        chat_tableview.getItems().addAll(offline_contact_list);
+      }
+    };
+    }
+
+  public void initialize(){
+    showMessage();
+    chat_name_col.setCellValueFactory(new PropertyValueFactory<>("Name"));
+    chat_usesrname_col.setCellValueFactory(new PropertyValueFactory<>("Username"));
+    chat_tableview.getItems().addAll(Database_Accessor.getContacts(Main.currentiMessageUser.getUser_id()));
+
+    }
+
+  }
+
+

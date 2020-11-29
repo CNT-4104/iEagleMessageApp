@@ -106,6 +106,7 @@ public class Home_Page_Controller {
     username_col.setCellValueFactory(new PropertyValueFactory<>("Username"));
     type_col.setCellValueFactory(new PropertyValueFactory<>("contact_type"));
     contacts_tableview.getItems().addAll(Database_Accessor.getContacts(currentUserID));
+    username_display_label.setText(Main.currentiMessageUser.getUsername());
     }
 
 

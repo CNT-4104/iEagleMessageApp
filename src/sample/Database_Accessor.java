@@ -298,7 +298,6 @@ public class Database_Accessor {
         String sql = "SELECT * FROM CONTACT_LIST WHERE CURRENT_USER_ID='" + currentUserID + "'";
         ResultSet rs = stmt.executeQuery(sql);
 
-        System.out.println("Gathering Contacts...");
         while (rs.next()) {
           contactArrayList.add(
               new Contact(
@@ -316,6 +315,35 @@ public class Database_Accessor {
       }
       return contactArrayList;
     }
+
+
+
+
+
+  public static Contact getOnlineContacts(String onlineUsername) {
+    Contact contact = new Contact("" ,"", "");
+    try {
+      Class.forName(JDBC_DRIVER);
+      conn = DriverManager.getConnection(DB_URL, user, pass);
+      stmt = conn.createStatement();
+      String sql = "SELECT * FROM CONTACT_LIST WHERE USERNAME='" + onlineUsername + "'";
+      ResultSet rs = stmt.executeQuery(sql);
+      while (rs.next()) {
+            contact = new Contact(
+                rs.getString(2),
+                rs.getString(3),
+                rs.getString(4));
+      }
+      // STEP 4: Clean-up environment
+      stmt.close();
+      conn.close();
+    } catch (ClassNotFoundException e) {
+      e.printStackTrace();
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+    return contact;
+  }
 
     public static void deleteContact(String contact_username){
       Connection conn = null;

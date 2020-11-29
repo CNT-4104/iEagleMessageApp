@@ -1,0 +1,73 @@
+CREATE TABLE MESSAGE_TABLE(
+                              message_id   int AUTO_INCREMENT,
+                              current_user_id int,
+                              message_type    varchar(255),
+                              time_of_message varchar(255),
+                              chat_contact    varchar(255),
+                              date_of_message	varchar(255),
+                              message_context	varchar(255));
+
+
+CREATE TABLE USER_INFO(
+                          user_id int auto_increment,
+                          username    varchar_ignorecase(255),
+                          password    varchar_casesensitive(255),
+                          email   varchar_ignorecase(255));
+
+
+CREATE TABLE CONTACT_LIST(
+                             current_user_id    int,
+                             NAME    VARCHAR_IGNORECASE(255),
+                             USERNAME    VARCHAR_IGNORECASE(255),
+                             TYPE_OF_CONTACT VARCHAR_IGNORECASE(255));
+
+
+INSERT INTO USER_INFO(USERNAME, PASSWORD, EMAIL)
+VALUES('asmith2341', 'red', 'asmith2341@eagle.fgcu.edu'),
+      ('aarbour3271', 'blue', 'aarbour3271@eagle.fgcu.edu'),
+      ('bhope1111', 'yellow', 'bhope1111@eagle.fgcu.edu'),
+      ('bjohnson2222', 'orange', 'bjohnson2222@eagle.fgcu.edu'),
+      ('cpeterson2121', 'green', 'cpeterson2121@eagle.fgcu.edu'),
+      ('eeagle9090', 'purple', 'eeagle9090@eagle.fgcu.edu'),
+      ('bjrhodes8553', 'white', 'bjrhodes8553@eagle.fgcu.edu');
+
+INSERT INTO USER_INFO(USERNAME, PASSWORD, EMAIL)
+VALUES('tavergara0828', 'panda', 'tavergara@eagle.fgcu.edu');
+
+
+INSERT INTO MESSAGE_TABLE(CURRENT_USER_ID, MESSAGE_TYPE, TIME_OF_MESSAGE, CHAT_CONTACT, DATE_OF_MESSAGE, MESSAGE_CONTEXT)
+VALUES(1, 'sent', '12:30:01.1', 'bjrhodes8553', '2020-11-17', 'Hello'),
+      (7, 'unread', '12:30:03.1', 'asmith2341', '2020-11-17', 'Hello'),
+      (2, 'sent', '12:35:01.1', 'bjrhodes8553', '2020-11-17', 'Whats up?'),
+      (7, 'sent', '12:36:03', 'aarbour3271', '2020-11-17', 'Not much, hbu?'),
+      (7,'deleted', '12:23:01.1', 'asmith2341', '2020-11-17', 'Are you there?'),
+      (7, 'deleted', '12:23:14.1', 'asmith2341', '2020-11-17', 'Where are you?');
+
+INSERT INTO MESSAGE_TABLE(CURRENT_USER_ID, MESSAGE_TYPE, TIME_OF_MESSAGE, CHAT_CONTACT, DATE_OF_MESSAGE, MESSAGE_CONTEXT)
+VALUES(1, 'sent', '12:30:01.1', 'bjrhodes8553', '2020-11-17', 'Hello'),
+      (8, 'unread', '12:30:03.1', 'asmith2341', '2020-11-17', 'Hello'),
+      (2, 'sent', '12:35:01.1', 'bjrhodes8553', '2020-11-17', 'Whats up?'),
+      (8, 'sent', '12:36:03', 'aarbour3271', '2020-11-17', 'Not much, hbu?'),
+      (8,'deleted', '12:23:01.1', 'asmith2341', '2020-11-17', 'Are you there?'),
+      (8, 'deleted', '12:23:14.1', 'asmith2341', '2020-11-17', 'Where are you?');
+
+
+
+INSERT INTO CONTACT_LIST(CURRENT_USER_ID, NAME, USERNAME, TYPE_OF_CONTACT)
+VALUES ( 7, 'Dr. Albert Smith', 'asmith2341', 'Professor' ),
+       ( 7, 'Dr. Ann Arbour', 'aarbour', 'Professor' ),
+       ( 7, 'Bob Hope', 'bhope1111', 'Other' ),
+       ( 7, 'Barb Johnson', 'bjohnson2222', 'Student' ),
+       ( 7, 'Chad Peterson', 'cpeterson2121', 'Student' ),
+       ( 7, 'Eddie Eagle', 'eeagle9090', 'Student' );
+
+INSERT INTO CONTACT_LIST(CURRENT_USER_ID, NAME, USERNAME, TYPE_OF_CONTACT)
+VALUES ( 8, 'Dr. Albert Smith', 'asmith2341', 'Professor' ),
+       ( 8, 'Dr. Ann Arbour', 'aarbour', 'Professor' ),
+       ( 8, 'Bob Hope', 'bhope1111', 'Other' ),
+       ( 8, 'Barb Johnson', 'bjohnson2222', 'Student' ),
+       ( 8, 'Chad Peterson', 'cpeterson2121', 'Student' ),
+       ( 8, 'Eddie Eagle', 'eeagle9090', 'Student' );
+
+
+

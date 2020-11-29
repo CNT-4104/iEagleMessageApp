@@ -24,7 +24,6 @@ public class Login_Controller {
   @FXML
   public TextField username_textfield;
 
-
   @FXML
   public PasswordField password_textfield;
 
@@ -62,15 +61,15 @@ public class Login_Controller {
   }
 
 
-
-
   @FXML
   public void login_user(MouseEvent event) throws IOException {
    String username = username_textfield.getText();
    String password = password_textfield.getText();
-   System.out.println(username);
-   System.out.println(password);
+   System.out.println("\nUser entered: \n"
+           + "Username: " +username+
+       "\nPassword: "+ password+"\n");
    System.out.println(Main.getClient().signIn(username, password));
+
 
     if(Main.getClient().signIn(username, password)){
       Main.currentiMessageUser = Database_Accessor.getiMessageUser(username);
