@@ -48,39 +48,13 @@ public class Chat_Screen_Controller {
 
   @FXML
   public void populate_conversation(MouseEvent event) {
-    chat_textarea.clear();
 
-    //Selecting the contact current user wishes to chat with
-    Contact recipientContact = chat_tableview.getSelectionModel().getSelectedItem();
 
-    //Get the username of the contact
-    String recipient = recipientContact.getUsername();
 
-    //Add the messages between current user and recipient into an ArrayList
-    ArrayList<String> messageList = new ArrayList<>();
-    for (Message x : Database_Accessor.getLiveMessage(recipient, Main.currentiMessageUser.getUsername())) {
-      //Unread messages with the contact will be marked as read
-      if(x.getMessage_type().equals("unread")){
-        Database_Accessor.updateMessageType(x.message_id, "read");
-      }
-      //Doesn't display the deleted messages between users
-      if (x.getMessage_type().equals("deleted")) {
-            System.out.println("");
-      }
-      else {
-        messageList.add(
-        (Database_Accessor.lookup_iMessage_user(x.getCurrent_user_id()).getUsername()
-            + ": "
-            + x.message_context
-            + "     "
-            + x.getTime_of_message()
-            + "\n"));
-      }
-      }
-    for(String x: messageList){
-      chat_textarea.appendText(x);
-    }
-  }
+
+
+    get_user_status();
+}
 
   @FXML
   void send_message(MouseEvent event) throws IOException {
@@ -102,21 +76,17 @@ public class Chat_Screen_Controller {
 
   //Uses message listener to receive incoming messages from the server.
   public void showMessage(){
-    MessageListener messageListener = new MessageListener() {
-      @Override
-      public void uponReceivingMessage(String sender, String messageContent) {
-        chat_textarea.appendText(sender + ": " + messageContent + "          "+LocalTime.now() + "\n");
-      }
-    };
+        chat_textarea.appendText(Main.liveMessage+LocalTime.now() + "\n");
+
   }
 
-  public void get_user_status(String onlineUser, String offlineUser){
+  public void get_user_status(){
     UserStatusListener userStatusListener = new UserStatusListener() {
       ArrayList<Contact> online_contact_list = new ArrayList<>();
       ArrayList<Contact> offline_contact_list = new ArrayList<>();
       @Override
       public void isOnline(String onlineUser) {
-        Contact onlineContact = Database_Accessor.getOnlineContacts(onlineUser);
+        Contact onlineContact = Database_Accessor.getOnlineContacts("asmith2341");
         online_contact_list.add(onlineContact);
         chat_tableview.getItems().addAll(online_contact_list);
       }
@@ -134,7 +104,7 @@ public class Chat_Screen_Controller {
     showMessage();
     chat_name_col.setCellValueFactory(new PropertyValueFactory<>("Name"));
     chat_usesrname_col.setCellValueFactory(new PropertyValueFactory<>("Username"));
-    chat_tableview.getItems().addAll(Database_Accessor.getContacts(Main.currentiMessageUser.getUser_id()));
+   chat_tableview.getItems().addAll(Database_Accessor.getContacts(Main.currentiMessageUser.getUser_id()));
 
     }
 

@@ -28,7 +28,6 @@ public class Server extends Thread {
         // Accept new client connection
         System.out.println("Accepting new clients");
         Socket clientSocket = serverSocket.accept();
-        System.out.println(serverThreadAL.size());
         System.out.println("Client connected: " + clientSocket);
         ServerThread serverThread = new ServerThread(this, clientSocket);
         serverThreadAL.add(serverThread); // Adds new client to list

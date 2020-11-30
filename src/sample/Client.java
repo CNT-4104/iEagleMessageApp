@@ -116,7 +116,7 @@ public class Client {
   }
 
   // MANAGE INCOMING MESSAGES FROM USERS ---------------------------------------
-  private void manageMessage(String[] tokens) {
+  public void manageMessage(String[] tokens) {
     String password = Main.currentiMessageUser.getPassword();
     String username = Main.currentiMessageUser.getUsername();
     String messageContent = null;

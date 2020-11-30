@@ -68,6 +68,7 @@ public class Login_Controller {
    System.out.println("\nUser entered: \n"
            + "Username: " +username+
        "\nPassword: "+ password+"\n");
+
    System.out.println(Main.getClient().signIn(username, password));
 
 

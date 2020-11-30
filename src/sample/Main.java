@@ -1,14 +1,6 @@
 package sample;
 
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.sql.Time;
-import java.time.LocalDate;
-import java.util.ArrayList;
 import javafx.application.Application;
 import javafx.event.Event;
 import javafx.fxml.FXMLLoader;
@@ -16,17 +8,15 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import java.sql.Time;
-import java.time.LocalTime;
-import java.util.Date;
-import org.h2.engine.Database;
 
 public class Main extends Application {
     // TO-DO
     // We should make getters / setters for these instead of making them public
     public static iMessageUser currentiMessageUser;
     public static Message currentMessage;
+    public static String liveMessage;
     private static Client client = new Client("10.0.0.43", 6177);
+    private static Client server = new Client("10.0.0.43", 6177);
 
 
     @Override
@@ -60,7 +50,9 @@ public class Main extends Application {
         client.addMessageListener(new MessageListener() {
             @Override
             public void uponReceivingMessage(String sender, String messageContent) {
-                System.out.println(sender + ": " + messageContent);
+                liveMessage = (sender + ": " + messageContent);
+                //System.out.println(sender + ": " + messageContent);
+
             }
         });
 
