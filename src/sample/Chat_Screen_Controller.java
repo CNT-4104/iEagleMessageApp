@@ -48,12 +48,8 @@ public class Chat_Screen_Controller {
 
   @FXML
   public void populate_conversation(MouseEvent event) {
+    showMessage();
 
-
-
-
-
-    get_user_status();
 }
 
   @FXML
@@ -70,13 +66,14 @@ public class Chat_Screen_Controller {
     String messageContext = reply_textfield.getText();
     Database_Accessor.addMessage(message);
     Main.getClient().sendMessage(recipient.getUsername(), messageContext);
-    showMessage();
+    chat_textarea.appendText(Main.currentiMessageUser.getUsername()+": " + messageContext+"         "+LocalTime.now() + "\n");
+
     reply_textfield.clear();
   }
 
   //Uses message listener to receive incoming messages from the server.
   public void showMessage(){
-        chat_textarea.appendText(Main.liveMessage+LocalTime.now() + "\n");
+        chat_textarea.appendText(Main.liveMessage+"          "+LocalTime.now()+"\n");
 
   }
 
@@ -101,7 +98,6 @@ public class Chat_Screen_Controller {
     }
 
   public void initialize(){
-    showMessage();
     chat_name_col.setCellValueFactory(new PropertyValueFactory<>("Name"));
     chat_usesrname_col.setCellValueFactory(new PropertyValueFactory<>("Username"));
    chat_tableview.getItems().addAll(Database_Accessor.getContacts(Main.currentiMessageUser.getUser_id()));

@@ -69,8 +69,6 @@ public class Login_Controller {
            + "Username: " +username+
        "\nPassword: "+ password+"\n");
 
-   System.out.println(Main.getClient().signIn(username, password));
-
 
     if(Main.getClient().signIn(username, password)){
       Main.currentiMessageUser = Database_Accessor.getiMessageUser(username);
